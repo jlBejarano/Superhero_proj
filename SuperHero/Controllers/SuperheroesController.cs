@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SuperHero.Data;
 using SuperHero.Models;
 
@@ -43,19 +44,21 @@ namespace SuperHero.Controllers
         // POST: Superheros/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Superheros Superheros)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+
+            // TODO: Add insert logic here
             {
-                return View();
+                db.Superheroes.Add(Superheros);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-        }
+            
+            
+                
+            
+        
 
         // GET: Superheros/Edit/5
         public ActionResult Edit(int id)
@@ -66,12 +69,13 @@ namespace SuperHero.Controllers
         // POST: Superheros/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Superhero, Superheros)
         {
             try
             {
                 // TODO: Add update logic here
-
+                db.Entry(superhero).State = EntityState.Modified
+                db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
