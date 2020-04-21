@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SuperHero.Data;
 using SuperHero.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SuperHero.Controllers
 {
@@ -30,7 +31,8 @@ namespace SuperHero.Controllers
         // GET: Superheros/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var superhero = db.Superheroes.Where(s => s.Id == id).SingleOrDefault();
+            return View(superhero);
         }
 
         // GET: Superheros/Create
@@ -54,8 +56,8 @@ namespace SuperHero.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
-            
+
+        } 
                 
             
         
@@ -69,19 +71,19 @@ namespace SuperHero.Controllers
         // POST: Superheros/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Superhero, Superheros)
+        public ActionResult Edit(int id, Superheros Superheros)
         {
-            try
+            if(ModelState.IsValid)
             {
                 // TODO: Add update logic here
-                db.Entry(superhero).State = EntityState.Modified
+                var heroInDb = db.Superheroes.Find(id);
+                heroInDb.AlterEgo = Superheros.AlterEgo;
+                db.Entry(Superheros).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
+
             }
-            catch
-            {
-                return View();
-            }
+            return View(Superheros);
         }
 
         // GET: Superheros/Delete/5
