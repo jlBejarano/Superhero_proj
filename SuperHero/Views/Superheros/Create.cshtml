@@ -1,10 +1,10 @@
 ﻿@model SuperHero.Models.Superheros
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Superhero";
 }
 
-<h1>Create</h1>
+<h1>Add Superhero</h1>
 
 <h4>Superheros</h4>
 <hr />
@@ -13,12 +13,12 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="A" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
