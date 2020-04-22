@@ -52,6 +52,7 @@ namespace SuperHero.Controllers
 
             // TODO: Add insert logic here
             {
+                SuperHeroes = db.Superheroes.Find();
                 db.Superheroes.Add(Superheros);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,12 +96,14 @@ namespace SuperHero.Controllers
         // POST: Superheros/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Superheros superhero)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                SuperHeroes = db.Superheroes.Where(s => s.Id == id).SingleOrDefault();
+                db.Superheroes.Remove(superhero);
+                db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
